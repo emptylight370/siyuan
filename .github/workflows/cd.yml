@@ -22,10 +22,10 @@ jobs:
       packageManager: ${{ steps.packageManager.outputs.value }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - run: pip install PyGithub
@@ -90,7 +90,7 @@ jobs:
     strategy:
       matrix:
         config:
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             name: ubuntu build linux.AppImage
             kernel_path: '../app/kernel-linux/SiYuan-Kernel'
             build_args_prefix: '-s -w -X'
@@ -99,7 +99,7 @@ jobs:
             goos: 'linux'
             goarch: 'amd64'
             suffix: 'linux.AppImage'
-          - os: ubuntu-22.04
+          - os: ubuntu-24.04
             name: ubuntu build linux.tar.gz
             kernel_path: '../app/kernel-linux/SiYuan-Kernel'
             build_args_prefix: '-s -w -X'
@@ -139,7 +139,7 @@ jobs:
             suffix: 'win.exe'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}
 
@@ -150,7 +150,7 @@ jobs:
           install: p7zip mingw-w64-x86_64-lua
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/kernel/go.mod
       - run: go version
@@ -167,7 +167,7 @@ jobs:
           GOARCH: ${{ matrix.config.goarch }}
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
