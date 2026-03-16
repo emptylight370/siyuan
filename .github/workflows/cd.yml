@@ -181,7 +181,7 @@ jobs:
 
       - name: Building UI
         run: pnpm run build
-        working-directory: ${{ github.workspace }}/go/src/github.com/${{ env.repo_owner }}/${{ env.repo_name }}/app
+        working-directory: ${{ github.workspace }}/go/src/github.com/${{ github.repository }}/app
 
       - name: Remove Build Directory
         uses: JesseTG/rm@v1.0.2
