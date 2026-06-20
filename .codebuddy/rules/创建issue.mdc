@@ -1,0 +1,10 @@
+---
+description: 用户要求创建issue时使用
+alwaysApply: false
+enabled: true
+updatedAt: 2026-11-05T12:21:50.877Z
+provider: 
+---
+
+根据项目根目录AGENTS.md文档中issue规范，在项目目录内创建临时的issue草稿，并根据用户要求继续修改。在修改结束后，根据文档说明到指定仓库创建issue并删除草稿文件。
+如果需要指定提交基线，取当前本地dev分支的最新提交，避免出现本fork仓库独有的build分支。一般build分支通过变基方法移动到dev分支之上，可据此参考。
