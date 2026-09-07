@@ -1,0 +1,115 @@
+[tools]
+# kernel/go.mod
+go = "1.26.5"
+# match pnpm requirement
+node = "24"
+# app/package.json
+pnpm = "11.25.0"
+
+[tasks.set_mirror]
+alias = "mirror"
+confirm = "Only use this when you are in China"
+description = "Configure package download mirrors for China region"
+run = [
+  "mise set ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ -E local",
+  # "mise set ELECTRON_MIRROR=https://mirrors.huaweicloud.com/electron/ -E local",
+  "mise set PNPM_REGISTRY=https://registry.npmmirror.com/ -E local",
+  "mise set GOPROXY=https://goproxy.io,https://goproxy.cn,https://mirrors.aliyun.com/goproxy/,direct -E local",
+]
+
+[tasks.pnpm_dev]
+description = "Run pnpm dev"
+dir = "app"
+outputs = ["app/stage/build"]
+run = "pnpm run dev"
+sources = ["app/src/**/*.ts", "app/src/**/*.scss"]
+
+[tasks.build_desktop]
+description = "Build kernel for Windows, see .github/CONTRIBUTING.md"
+dir = "kernel"
+outputs = ["app/kernel/SiYuan-Kernel", "app/kernel/SiYuan-Kernel.exe"]
+run = ['go build -tags "fts5 sqlcipher" -o "../app/kernel/SiYuan-Kernel"', "mise run build_frontend"]
+run_windows = [
+  # "go install github.com/josephspurrier/goversioninfo/cmd/goversioninfo@latest",
+  # 'goversioninfo -platform-specific=true "-icon=resource/icon.ico" "-manifest=resource/goversioninfo.exe.manifest"',
+  'go build -tags "fts5 sqlcipher" -o "../app/kernel/SiYuan-Kernel.exe"',
+  "mise run build_frontend"
+]
+
+[tasks.build_frontend]
+description = "Build frontend for every platform."
+dir = "app"
+hide = true
+run = ["mise deps pnpm", "pnpm run build"]
+
+[tasks.run_kernel]
+depends = ["build_desktop"]
+description = "Start kernel for desktop device"
+dir = "app/kernel"
+run = "./SiYuan-Kernel serve --wd=.. --mode=dev"
+run_windows = "./SiYuan-Kernel.exe serve --wd=.. --mode=dev"
+
+[tasks.start]
+description = "pnpm run start"
+dir = "app"
+env = { NODE_ENV = "development" }
+raw = true
+run = "pnpm exec electron ./electron/main.js"
+
+[tasks.clean_go]
+dir = "kernel"
+hide = true
+run = ["go clean -modcache", "go clean -cache", "go clean -testcache"]
+
+[tasks.clean_pnpm]
+dir = "app"
+hide = true
+run = ["rm -r node_modules"]
+
+[tasks.clean_deps]
+depends = ["clean_go", "clean_pnpm"]
+description = "Clean dependencies. Use --no-deps to skip pre-download."
+
+[tasks.clean]
+description = "Clean build output."
+run = ["rm -r app/kernel", "rm -r app/build"]
+run_windows = ['Remove-Item -Path "app\kernel", "app\build" -Recurse']
+
+[tasks.package_release]
+# 根据本地运行环境自行覆写打包架构，详情参考package.json
+# 用mise.local.toml覆写
+description = "Build release package with electron-builder(win_x64)"
+dir = "app"
+depends_post = ["install_release"]
+run = "pnpm exec electron-builder --config electron-builder.yml --publish=never"
+# run = "pnpm exec electron-builder --mac --config electron-builder-darwin.yml --publish=never"
+
+[tasks.install_release]
+dir = "app"
+hide = true
+run = """#!/bin/bash
+file=$(find ./build -maxdepth 1 -name "siyuan-*" -type f | while read -r f; do
+    [ -x "$f" ] && echo "$f" && break
+done)
+if [ -n "$file" ]; then
+    "$file"
+else
+    echo "未找到 siyuan-* 可执行文件"
+    exit 1
+fi
+"""
+run_windows = "Get-ChildItem -Path \"build\" -Filter \"*.exe\" | Invoke-Item"
+
+[env]
+CGO_ENABLED = "1"
+GO111MODULE = "on"
+
+[settings]
+experimental = true
+# Recommend using. Add them to mise.local.toml or add them to global.
+# go.download_mirror = "https://mirrors.aliyun.com/golang/"
+# go.skip_checksum = true
+# windows_default_inline_shell_args = "pwsh -C" # This only valid in global settings.
+
+[deps.pnpm]
+dir = "app"
