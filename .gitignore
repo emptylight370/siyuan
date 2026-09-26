@@ -49,3 +49,7 @@ muslbin/
 
 # Workflows
 **/__pycache__
+
+# mise-en-place
+mise.local.toml
+mise.local.lock
