@@ -55,3 +55,7 @@ muslbin/
 /.cache/ocr/
 /app/stage/ocr/models/
 /app/stage/ocr/runtime/
+
+# mise-en-place
+mise.local.toml
+mise.local.lock

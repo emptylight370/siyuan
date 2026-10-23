@@ -1,0 +1,117 @@
+[
+  {
+    "Name": "Styles",
+    "Type": ":art",
+    "Description": "Improve structure / format of the code."
+  },
+  {
+    "Name": "Features",
+    "Type": ":sparkles",
+    "Description": "Adding a new feature"
+  },
+  {
+    "Name": "Bug Fixes",
+    "Type": ":bug",
+    "Description": "Fixing a bug"
+  },
+  {
+    "Name": "Fix Typos",
+    "Type": ":pencil2",
+    "Description": "Fix typos"
+  },
+  {
+    "Name": "Code Refactoring",
+    "Type": ":recycle",
+    "Description": "Restructuring code without changing its external behavior"
+  },
+  {
+    "Name": "Performance Improvements",
+    "Type": ":zap",
+    "Description": "Improves performance"
+  },
+  {
+    "Name": "Improve Layout",
+    "Type": ":lipstick",
+    "Description": "Add or update the UI and style files"
+  },
+  {
+    "Name": "Improve responsive Layout",
+    "Type": ":iphone",
+    "Description": "Improve responsive design"
+  },
+  {
+    "Name": "Reverts",
+    "Type": ":rewind",
+    "Description": "Undoing a previous commit"
+  },
+  {
+    "Name": "Removal",
+    "Type": ":fire",
+    "Description": "Remove code or files"
+  },
+  {
+    "Name": "Builds",
+    "Type": ":construction_worker",
+    "Description": "Fix CI Build"
+  },
+  {
+    "Name": "Builds",
+    "Type": ":globe_with_meridians",
+    "Description": "Add or update development scripts"
+  },
+  {
+    "Name": "Continuous Integrations",
+    "Type": ":green_heart",
+    "Description": "Add or update CI build system"
+  },
+  {
+    "Name": "Documentations",
+    "Type": ":memo",
+    "Description": "Updating documentation"
+  },
+  {
+    "Name": "For Developer",
+    "Type": ":technologist",
+    "Description": "Improves developer performance"
+  },
+  {
+    "Name": "Upgrade Dependencies",
+    "Type": ":arror_up",
+    "Description": "Update depdencies to newer versions"
+  },
+  {
+    "Name": "Downgrade Dependencies",
+    "Type": ":arror_down",
+    "Description": "Downgrade depdencies to older versions"
+  },
+  {
+    "Name": "Security",
+    "Type": ":lock",
+    "Description": "Fix security problems"
+  },
+  {
+    "Name": "Version Releases",
+    "Type": ":bookmark",
+    "Description": "Release a new version"
+  },
+  {
+    "Name": "Failing Tests",
+    "Type": ":test_tube",
+    "Description": "Add a failing tests"
+  },
+  {
+    "Name": "Fix warnings",
+    "Type": ":rotating_light",
+    "Description": "Fix compiler / linter warnings"
+  },
+  {
+    "Name": "Internalization And Localization",
+    "Type": ":globe_with_meridians",
+    "Description": "Update or add new languages"
+  },
+  {
+    "Name": "Update Images",
+    "Type": ":camera_flash",
+    "Description": "Add or update screenshots"
+  }
+]
